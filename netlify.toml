@@ -1,0 +1,3 @@
+[build]
+  command = "rm -rf package-lock.json node_modules/ && npm i && npm run build"
+  publish = "dist"
