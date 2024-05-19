@@ -16,13 +16,27 @@ function App() {
     setDuration(parseInt(e.target.value));
   };
 
-  const calculateEndTime = () => {
+  const calculateEndTime = (hours = 0) => {
     const [startHours, startMinutes] = startTime.split(":").map(Number);
     // Add 8 hours to start hours for total shift
-    const totalStartMinutes = (startHours + 8) * 60 + startMinutes;
+    const totalStartMinutes = (startHours + hours) * 60 + startMinutes;
     const endTotalMinutes = totalStartMinutes + duration;
     // Adjust the total minutes to be within 24 hours
     const adjustedEndTotalMinutes = endTotalMinutes % (24 * 60);
+    const endHours = Math.floor(adjustedEndTotalMinutes / 60);
+    const endMinutes = adjustedEndTotalMinutes % 60;
+    const endTime = `${String(endHours).padStart(2, "0")}:${String(
+      endMinutes
+    ).padStart(2, "0")}`;
+    return endTime;
+  };
+
+  const calculateLunchTime = (hours = 5) => {
+    const [startHours, startMinutes] = startTime.split(":").map(Number);
+    // Add hours to start hours for total shift
+    const totalStartMinutes = (startHours + hours) * 60 + startMinutes;
+    // Adjust the total minutes to be within 24 hours
+    const adjustedEndTotalMinutes = totalStartMinutes % (24 * 60);
     const endHours = Math.floor(adjustedEndTotalMinutes / 60);
     const endMinutes = adjustedEndTotalMinutes % 60;
     const endTime = `${String(endHours).padStart(2, "0")}:${String(
@@ -40,8 +54,8 @@ function App() {
 
   return (
     <div className="container mx-auto mt-8 ">
-      <div className="max-w-md mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-8 text-center ">Clockout</h1>
+      <div className="max-w-md p-8 mx-auto bg-gray-100 rounded-lg shadow-md">
+        <h1 className="mb-8 text-2xl font-bold text-center ">Clockout</h1>
         <div className="mb-6">
           <Time
             value={startTime}
@@ -57,8 +71,11 @@ function App() {
             label="Lunch Duration"
           />
         </div>
+        <div classname="mb=6">
+          <Time value={calculateLunchTime()} label="Lunch Time" readOnly />
+        </div>
         <div>
-          <Time value={calculateEndTime()} label="Clockout Time" readOnly />
+          <Time value={calculateEndTime(8)} label="Clockout Time" readOnly />
         </div>
         <button onClick={() => alert("Cesar needs to learn basic math.")}>
           <FaQuestionCircle className="fill-yellow-500" />
