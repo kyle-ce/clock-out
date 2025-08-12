@@ -163,7 +163,7 @@ export default function ClockoutApp() {
                 isCalculating ? "opacity-60 scale-95" : "opacity-100 scale-100"
               )}
             >
-              {lunchTime || "--:--"}
+              {formatTime(lunchTime) || "--:--"}
             </div>
             <div className="text-[10px] text-slate-500">+5h</div>
           </div>
