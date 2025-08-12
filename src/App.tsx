@@ -18,17 +18,16 @@ export default function ClockoutApp() {
   const [lunchDuration, setLunchDuration] = useState(15);
   const [lunchTime, setLunchTime] = useState("");
   const [isCalculating, setIsCalculating] = useState(false);
-  const [timeFormat, setTimeFormat] = useState<"24" | "12">("12");
-
+  // Only use 12-hour format for display
   function formatTime(time: string) {
-    if (timeFormat === "24" || !time || time === "--:--") return time;
-    const [h, m] = time.split(":").map(Number);
-    if (isNaN(h) || isNaN(m)) return time;
-    const period = h >= 12 ? "PM" : "AM";
-    const hour12 = h % 12 === 0 ? 12 : h % 12;
-    return `${hour12.toString().padStart(2, "0")}:${m
-      .toString()
-      .padStart(2, "0")} ${period}`;
+    if (!time) return "";
+    const [hourStr, minuteStr] = time.split(":");
+    let hour = Number(hourStr);
+    const minute = Number(minuteStr);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12;
+    if (hour === 0) hour = 12;
+    return `${hour}:${minute.toString().padStart(2, "0")} ${ampm}`;
   }
 
   function addHoursToTime(time: string, hoursToAdd: number): string {
@@ -138,35 +137,6 @@ export default function ClockoutApp() {
               <span className="text-xs font-semibold opacity-90">
                 Clock-out
               </span>
-              {/* Stepper toggle */}
-              {/* <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  className={clsx(
-                    "px-1 text-xs rounded transition-colors",
-                    timeFormat === "24"
-                      ? "bg-white/20 text-white font-bold"
-                      : "text-white/70 hover:bg-white/10"
-                  )}
-                  aria-label="24 hour format"
-                  onClick={() => setTimeFormat("24")}
-                >
-                  24
-                </button>
-                <button
-                  type="button"
-                  className={clsx(
-                    "px-1 text-xs rounded transition-colors",
-                    timeFormat === "12"
-                      ? "bg-white/20 text-white font-bold"
-                      : "text-white/70 hover:bg-white/10"
-                  )}
-                  aria-label="12 hour format"
-                  onClick={() => setTimeFormat("12")}
-                >
-                  12
-                </button>
-              </div> */}
             </div>
             <div
               className={clsx(
@@ -296,35 +266,6 @@ export default function ClockoutApp() {
                 <h3 className="text-lg font-semibold opacity-90">
                   Clock-out Time
                 </h3>
-                {/* Stepper toggle */}
-                {/* <div className="flex items-center gap-1">
-                  <button
-                    type="button"
-                    className={clsx(
-                      "px-1 text-xs rounded transition-colors",
-                      timeFormat === "24"
-                        ? "bg-white/20 text-white font-bold"
-                        : "text-white/70 hover:bg-white/10"
-                    )}
-                    aria-label="24 hour format"
-                    onClick={() => setTimeFormat("24")}
-                  >
-                    24
-                  </button>
-                  <button
-                    type="button"
-                    className={clsx(
-                      "px-1 text-xs rounded transition-colors",
-                      timeFormat === "12"
-                        ? "bg-white/20 text-white font-bold"
-                        : "text-white/70 hover:bg-white/10"
-                    )}
-                    aria-label="12 hour format"
-                    onClick={() => setTimeFormat("12")}
-                  >
-                    12
-                  </button>
-                </div> */}
               </div>
               <div
                 className={clsx(
