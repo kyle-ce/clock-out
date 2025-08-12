@@ -93,28 +93,52 @@ export default function ClockoutApp() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 lg:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-2 sm:p-4 lg:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-8 lg:mb-12">
-          <h1 className="text-3xl lg:text-5xl font-bold text-slate-900 mb-4">
+        <div className="text-center mb-4 lg:mb-12">
+          <h1 className="text-2xl lg:text-5xl font-bold text-slate-900 mb-2 lg:mb-4">
             Clock Out Calculator
           </h1>
-          <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Calculate your exact clock-out time based on your shift schedule
           </p>
         </div>
 
+        {/* Results Section - show above form on mobile */}
+        <div className="flex flex-row gap-2 mb-3 md:hidden">
+          {/* Clock Out Time - Primary Result */}
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl shadow p-2 text-white flex-1 flex flex-col items-center justify-center min-w-0">
+            <div className="text-xs font-semibold opacity-90 mb-1">
+              Clock-out
+            </div>
+            <div className="text-2xl font-bold mb-0.5">
+              {endTime || "--:--"}
+            </div>
+            <div className="text-[10px] text-blue-100">End time</div>
+          </div>
+          {/* Suggested Lunch Time */}
+          <div className="bg-white rounded-xl shadow border border-slate-200/60 p-2 flex-1 flex flex-col items-center justify-center min-w-0">
+            <div className="text-xs font-semibold text-slate-900 mb-1">
+              Lunch
+            </div>
+            <div className="text-xl font-bold text-emerald-600 mb-0.5">
+              {lunchTime || "--:--"}
+            </div>
+            <div className="text-[10px] text-slate-500">+5h</div>
+          </div>
+        </div>
+
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 lg:h-[520px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-8 lg:h-[520px]">
           {/* Input Section */}
           <div className="lg:col-span-2 h-full flex flex-col">
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 p-6 lg:p-8 flex-1 flex flex-col">
-              <h2 className="text-xl font-semibold text-slate-900 mb-6 flex items-center gap-2">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 p-3 sm:p-4 lg:p-8 flex-1 flex flex-col">
+              <h2 className="text-lg lg:text-xl font-semibold text-slate-900 mb-4 lg:mb-6 flex items-center gap-2">
                 Shift Details
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
                     <Clock className="w-5 h-5 text-blue-600" />
@@ -146,11 +170,11 @@ export default function ClockoutApp() {
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-3 lg:mt-6">
                 <label className="block text-sm font-semibold text-slate-800 mb-3">
                   Shift Length
                 </label>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-xs font-medium text-slate-500 mb-2">
                       Hours
@@ -182,10 +206,10 @@ export default function ClockoutApp() {
             </div>
           </div>
 
-          {/* Results Section */}
-          <div className="flex flex-col md:flex-row lg:flex-col h-full space-y-6 md:space-y-0 md:space-x-6 lg:space-x-0 lg:space-y-6">
+          {/* Results Section - hidden on mobile, visible on md+ */}
+          <div className="hidden md:flex flex-col md:flex-row lg:flex-col h-full space-y-3 sm:space-y-4 md:space-y-0 md:space-x-3 sm:md:space-x-4 lg:space-x-0 lg:space-y-6">
             {/* Clock Out Time - Primary Result */}
-            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-lg p-6 lg:p-8 text-white flex-1 flex flex-col justify-center">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-lg p-3 sm:p-4 lg:p-8 text-white flex-1 flex flex-col justify-center">
               <h3 className="text-lg font-semibold mb-2 opacity-90">
                 Clock-out Time
               </h3>
@@ -198,7 +222,7 @@ export default function ClockoutApp() {
             </div>
 
             {/* Suggested Lunch Time */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 p-6 lg:p-8 flex-1 flex flex-col justify-center">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200/60 p-3 sm:p-4 lg:p-8 flex-1 flex flex-col justify-center">
               <h3 className="text-lg font-semibold text-slate-900 mb-2">
                 Suggested Lunch
               </h3>
